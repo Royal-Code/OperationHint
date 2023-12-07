@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="..\base.targets" />
+
+	<PropertyGroup>
+		<TargetFrameworks>$(LibTargets)</TargetFrameworks>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Version>$(LibVer)$(LibPreview)</Version>
+		<AssemblyVersion>$(LibVer)</AssemblyVersion>
+		<FileVersion>$(LibVer)</FileVersion>
+		<Description>
+			This library offers a flexible solution for adding hints to the data repositories in your application,
+			inspired by EFCore's Query Hints.
+			These hints can be easily applied to query operations to modify the repository's behavior,
+			giving you greater control over data access.
+		</Description>
+		<PackageTags>
+			RoyalCode Enterprise-Patterns Unit-Of-Work Unit-Of-Work-Pattern Query-Hints
+		</PackageTags>
+	</PropertyGroup>
+
+</Project>
