@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="..\tests.targets" />
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(DotNetCoreVersion)" />
+		<PackageReference Include="RoyalCode.Persistence.EntityFramework.WorkContext" Version="1.0.0-preview-4.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\RoyalCode.OperationHint.Abstractions\RoyalCode.OperationHint.Abstractions.csproj" />
+		<ProjectReference Include="..\RoyalCode.OperationHint.EntityFramework\RoyalCode.OperationHint.EntityFramework.csproj" />
+	</ItemGroup>
+</Project>

@@ -1,9 +1,10 @@
 <Project>
 	<PropertyGroup>
 		<LibTargets>netstandard2.1;net6;net7;net8</LibTargets>
+		<AspTargets>net6;net7;net8</AspTargets>
 	</PropertyGroup>
 	<PropertyGroup>
 		<LibVer>1.0.0</LibVer>
-		<LibPreview>-preview-4.0</LibPreview>
+		<LibPreview></LibPreview>
 	</PropertyGroup>
 </Project>

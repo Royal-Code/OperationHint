@@ -9,7 +9,7 @@ namespace RoyalCode.OperationHint.Abstractions;
 ///     This implementation will perform the hint handlers for the given query.
 /// </para>
 /// </summary>
-public class DefaultHintPerformer : IHintPerformer, IHintsContainer
+public sealed class DefaultHintPerformer : IHintPerformer, IHintsContainer
 {
     private readonly IHintHandlerRegistry registry;
     private List<InternalHintHandler>? hints;

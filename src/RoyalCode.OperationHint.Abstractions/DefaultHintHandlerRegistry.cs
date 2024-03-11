@@ -11,7 +11,7 @@ namespace RoyalCode.OperationHint.Abstractions;
 ///     Accepts <see cref="IHintQueryHandler{TQuery,THint}"/> and <see cref="IHintEntityHandler{TEntity,TSource,THint}"/>.
 /// </para>
 /// </summary>
-public class DefaultHintHandlerRegistry : IHintHandlerRegistry
+public sealed class DefaultHintHandlerRegistry : IHintHandlerRegistry
 {
     private readonly List<object> handlers = [];
 

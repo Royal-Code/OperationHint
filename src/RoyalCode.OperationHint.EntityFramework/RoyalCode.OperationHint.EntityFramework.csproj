@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="..\base.targets" />
+
+	<PropertyGroup>
+		<TargetFrameworks>$(AspTargets)</TargetFrameworks>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Version>$(LibVer)$(LibPreview)</Version>
+		<AssemblyVersion>$(LibVer)</AssemblyVersion>
+		<FileVersion>$(LibVer)</FileVersion>
+		<Description>
+			Persistence components implementation with EntityFrameworkCore,
+			for work with Operation Hint.
+		</Description>
+		<PackageTags>
+			RoyalCode Enterprise-Patterns Persistence OperationHint Operation-Hint-Pattern
+		</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\RoyalCode.OperationHint.Abstractions\RoyalCode.OperationHint.Abstractions.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(DotNetCoreVersion)" />
+	</ItemGroup>
+</Project>
