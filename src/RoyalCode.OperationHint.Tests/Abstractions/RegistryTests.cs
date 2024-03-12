@@ -3,6 +3,7 @@ using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RoyalCode.OperationHint.Abstractions;
+using RoyalCode.OperationHint.Tests.Models;
 
 namespace RoyalCode.OperationHint.Tests.Abstractions;
 
@@ -13,17 +14,15 @@ public class RegistryTests
     {
         // Arrange
         var services = new ServiceCollection();
-        Utils.AddWorkContext(services, builder =>
+
+        // Act
+        var handler = new SomeHandler();
+        services.ConfigureOperationHints(regitry =>
         {
-            builder.ConfigureOperationHints(regitry =>
-            {
-                // Act
-                var handler = new SomeHandler();
-                regitry.Add<IQueryable<SimpleEntity>, SomeHint>(handler);
-                regitry.Add<IQueryable<SimpleEntity>, SomeHint>(handler);
-                regitry.Add<SimpleEntity, DbContext, SomeHint>(handler);
-                regitry.Add<SimpleEntity, DbContext, SomeHint>(handler);
-            });
+            regitry.Add<IQueryable<SimpleEntity>, SomeHint>(handler);
+            regitry.Add<IQueryable<SimpleEntity>, SomeHint>(handler);
+            regitry.Add<SimpleEntity, DbContext, SomeHint>(handler);
+            regitry.Add<SimpleEntity, DbContext, SomeHint>(handler);
         });
 
         var provider = services.BuildServiceProvider();

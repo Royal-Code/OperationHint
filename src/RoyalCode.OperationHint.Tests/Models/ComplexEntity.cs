@@ -1,8 +1,8 @@
 ﻿using RoyalCode.Entities;
 
-namespace RoyalCode.OperationHint.Tests;
+namespace RoyalCode.OperationHint.Tests.Models;
 
-public class ComplexEntity: Entity<int>
+public class ComplexEntity : Entity<int>
 {
     public ComplexEntity()
     {

@@ -1,6 +1,6 @@
 ﻿using RoyalCode.Entities;
 
-namespace RoyalCode.OperationHint.Tests;
+namespace RoyalCode.OperationHint.Tests.Models;
 
 public class SimpleEntity : Entity<int>
 {

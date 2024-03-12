@@ -4,7 +4,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(DotNetCoreVersion)" />
-		<PackageReference Include="RoyalCode.Persistence.EntityFramework.WorkContext" Version="1.0.0-preview-4.0" />
+		<PackageReference Include="RoyalCode.Entities" Version="1.0.0-preview-4.0" />
 	</ItemGroup>
 
 	<ItemGroup>

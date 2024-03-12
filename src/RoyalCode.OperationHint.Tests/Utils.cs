@@ -2,63 +2,49 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using RoyalCode.Persistence.EntityFramework.UnitOfWork;
+using RoyalCode.OperationHint.Tests.Models;
 using System.Data.Common;
 
 namespace RoyalCode.OperationHint.Tests;
 
 internal static class Utils
 {
-    public static TServices AddWorkContext<TServices>(
-        TServices services,
-        Action<IUnitOfWorkBuilder<LocalDbContext>>? configureBuilder = null)
+    public static TServices AddLocalDbContext<TServices>(
+        TServices services)
         where TServices : IServiceCollection
     {
         DbConnection conn = new SqliteConnection("Data Source=:memory:");
         conn.Open();
         services.TryAddSingleton(conn);
-        var builder = services.AddWorkContext<LocalDbContext>()
-            .ConfigureDbContextPool(builder => builder.UseSqlite(conn))
-            .ConfigureRepositories(c =>
-            {
-                c.Add<SimpleEntity>();
-                c.Add<ComplexEntity>();
-            });
 
-        configureBuilder?.Invoke(builder);
+        services.AddDbContextPool<LocalDbContext>(builder => builder.UseSqlite(conn));
 
         return services;
     }
 
-    public static TServices AddWorkContextWithIncludes<TServices>(
-        TServices services,
-        Action<IUnitOfWorkBuilder<LocalDbContext>>? configureBuilder = null)
+    public static TServices AddOperationHintIncludes<TServices>(
+        this TServices services)
         where TServices : IServiceCollection
     {
-        AddWorkContext(services, builder =>
+        services.ConfigureOperationHints(registry =>
         {
-            builder.ConfigureOperationHints(regitry =>
+            registry.AddIncludesHandler<ComplexEntity, TestHints>((hint, includes) =>
             {
-                regitry.AddIncludesHandler<ComplexEntity, TestHints>((hint, includes) =>
+                switch (hint)
                 {
-                    switch (hint)
-                    {
-                        case TestHints.TestSingleRelation:
-                            includes.IncludeReference(e => e.SingleRelation);
-                            break;
-                        case TestHints.TestMultipleRelation:
-                            includes.IncludeCollection(e => e.MultipleRelation);
-                            break;
-                        case TestHints.TestAllRelations:
-                            includes
-                                .IncludeReference(e => e.SingleRelation)
-                                .IncludeCollection(e => e.MultipleRelation);
-                            break;
-                    }
-                });
+                    case TestHints.TestSingleRelation:
+                        includes.IncludeReference(e => e.SingleRelation);
+                        break;
+                    case TestHints.TestMultipleRelation:
+                        includes.IncludeCollection(e => e.MultipleRelation);
+                        break;
+                    case TestHints.TestAllRelations:
+                        includes
+                            .IncludeReference(e => e.SingleRelation)
+                            .IncludeCollection(e => e.MultipleRelation);
+                        break;
+                }
             });
-
-            configureBuilder?.Invoke(builder);
         });
 
         return services;

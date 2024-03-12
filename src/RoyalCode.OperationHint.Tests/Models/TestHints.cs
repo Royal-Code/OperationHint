@@ -1,5 +1,4 @@
-﻿
-namespace RoyalCode.OperationHint.Tests;
+﻿namespace RoyalCode.OperationHint.Tests.Models;
 
 public enum TestHints
 {

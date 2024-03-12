@@ -2,24 +2,17 @@
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using RoyalCode.OperationHint.Abstractions;
-using RoyalCode.Searches.Abstractions;
+using RoyalCode.OperationHint.Tests.Models;
 
-namespace RoyalCode.OperationHint.Tests.Searches;
+namespace RoyalCode.OperationHint.Tests.EFCore;
 
-public class SearchesTestes
+public class QueryTestes
 {
     private static IServiceProvider CreateServiceProvider()
     {
-        var services = Utils.AddWorkContextWithIncludes(new ServiceCollection(), builder =>
-        {
-            builder.ConfigureSearches(conf =>
-            {
-                conf.Add<ComplexEntity>();
-            });
-        });
+        var services = Utils.AddLocalDbContext(new ServiceCollection()).AddOperationHintIncludes();
         return services.BuildServiceProvider();
     }
-
 
     [Fact]
     public void Must_Includes_SingleRelation_When_TestSingleRelationHintAdded()
@@ -35,9 +28,13 @@ public class SearchesTestes
         var container = scope.ServiceProvider.GetRequiredService<IHintsContainer>();
         container.AddHint(TestHints.TestSingleRelation);
 
-        var search = scope.ServiceProvider.GetRequiredService<IAllEntities<ComplexEntity>>();
-        search.FilterBy(new ComplexFilter());
-        var list = search.Collect();
+        var db = scope.ServiceProvider.GetRequiredService<LocalDbContext>();
+        IQueryable<ComplexEntity> query = db.Set<ComplexEntity>();
+
+        var hintPerformer = scope.ServiceProvider.GetRequiredService<IHintPerformer>();
+        query = hintPerformer.Perform(query);
+
+        var list = query.ToList();
 
         // Assert
         list.Should().NotBeEmpty();
@@ -59,9 +56,13 @@ public class SearchesTestes
         var container = scope.ServiceProvider.GetRequiredService<IHintsContainer>();
         container.AddHint(TestHints.TestMultipleRelation);
 
-        var search = scope.ServiceProvider.GetRequiredService<IAllEntities<ComplexEntity>>();
-        search.FilterBy(new ComplexFilter());
-        var list = search.Collect();
+        var db = scope.ServiceProvider.GetRequiredService<LocalDbContext>();
+        IQueryable<ComplexEntity> query = db.Set<ComplexEntity>();
+
+        var hintPerformer = scope.ServiceProvider.GetRequiredService<IHintPerformer>();
+        query = hintPerformer.Perform(query);
+
+        var list = query.ToList();
 
         // Assert
         list.Should().NotBeEmpty();
@@ -83,9 +84,13 @@ public class SearchesTestes
         var container = scope.ServiceProvider.GetRequiredService<IHintsContainer>();
         container.AddHint(TestHints.TestAllRelations);
 
-        var search = scope.ServiceProvider.GetRequiredService<IAllEntities<ComplexEntity>>();
-        search.FilterBy(new ComplexFilter());
-        var list = search.Collect();
+        var db = scope.ServiceProvider.GetRequiredService<LocalDbContext>();
+        IQueryable<ComplexEntity> query = db.Set<ComplexEntity>();
+
+        var hintPerformer = scope.ServiceProvider.GetRequiredService<IHintPerformer>();
+        query = hintPerformer.Perform(query);
+
+        var list = query.ToList();
 
         // Assert
         list.Should().NotBeEmpty();
@@ -108,9 +113,13 @@ public class SearchesTestes
         container.AddHint(TestHints.TestSingleRelation);
         container.AddHint(TestHints.TestMultipleRelation);
 
-        var search = scope.ServiceProvider.GetRequiredService<IAllEntities<ComplexEntity>>();
-        search.FilterBy(new ComplexFilter());
-        var list = search.Collect();
+        var db = scope.ServiceProvider.GetRequiredService<LocalDbContext>();
+        IQueryable<ComplexEntity> query = db.Set<ComplexEntity>();
+
+        var hintPerformer = scope.ServiceProvider.GetRequiredService<IHintPerformer>();
+        query = hintPerformer.Perform(query);
+
+        var list = query.ToList();
 
         // Assert
         list.Should().NotBeEmpty();
@@ -134,9 +143,13 @@ public class SearchesTestes
         container.AddHint(TestHints.TestMultipleRelation);
         container.AddHint(TestHints.TestAllRelations);
 
-        var search = scope.ServiceProvider.GetRequiredService<IAllEntities<ComplexEntity>>();
-        search.FilterBy(new ComplexFilter());
-        var list = search.Collect();
+        var db = scope.ServiceProvider.GetRequiredService<LocalDbContext>();
+        IQueryable<ComplexEntity> query = db.Set<ComplexEntity>();
+
+        var hintPerformer = scope.ServiceProvider.GetRequiredService<IHintPerformer>();
+        query = hintPerformer.Perform(query);
+
+        var list = query.ToList();
 
         // Assert
         list.Should().NotBeEmpty();

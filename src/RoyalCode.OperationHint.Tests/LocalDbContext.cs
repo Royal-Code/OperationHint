@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RoyalCode.OperationHint.Tests.Models;
 
 namespace RoyalCode.OperationHint.Tests;
 

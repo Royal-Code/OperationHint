@@ -16,7 +16,7 @@ public interface IHintHandlerBuilder<THint>
     /// </summary>
     /// <typeparam name="TEntity">The entity type to handle.</typeparam>
     /// <param name="action">The action to handle the hint.</param>
-    /// <returns>The same instance of <paramref name="registry"/> for chaining.</returns>
+    /// <returns>The same instance for chaining.</returns>
     IHintHandlerBuilder<THint> Add<TEntity>(Action<THint, Includes<TEntity>> action)
         where TEntity : class;
 }

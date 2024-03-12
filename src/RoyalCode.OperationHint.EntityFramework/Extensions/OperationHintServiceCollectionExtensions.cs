@@ -37,6 +37,29 @@ public static class OperationHintServiceCollectionExtensions
             sp => sp.GetService<DefaultHintPerformer>()!,
             lifetime));
 
+        services.GetOrAddHintHandlerRegistry();
+
+        return services;
+    }
+
+    /// <summary>
+    /// Add Operation hints and configure the hint handler registry.
+    /// </summary>
+    /// <param name="services">The service collection.</param>
+    /// <param name="configure">The configuration action for the hint handler registry.</param>
+    /// <returns>The same instance of <paramref name="services"/> for chaining.</returns>
+    public static IServiceCollection ConfigureOperationHints(
+        this IServiceCollection services,
+        Action<IHintHandlerRegistry>? configure = null)
+    {
+        services.AddOperationHints();
+
+        if (configure is not null)
+        {
+            var registry = services.GetOrAddHintHandlerRegistry();
+            configure(registry);
+        }
+
         return services;
     }
 
