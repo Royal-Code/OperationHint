@@ -102,20 +102,15 @@ public class DefaultRepository<TEntity, TDb> : IRepository<TEntity>
     public TEntity? Find(object id)
     {
         var entity = db.Set<TEntity>().Find(id);
-
-        if (hintPerformer is not null && entity is not null)
+        if (entity is not null)
             hintPerformer.Perform<TEntity, DbContext>(entity, db);
-
         return entity;
     }
 
     public IQueryable<TEntity> Query()
     {
         IQueryable<TEntity> query = db.Set<TEntity>();
-
-        if (hintPerformer is not null)
-            query = hintPerformer.Perform(query);
-
+        query = hintPerformer.Perform(query);
         return query;
     }
 }
