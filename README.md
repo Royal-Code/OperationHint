@@ -149,14 +149,6 @@ services.ConfigureOperationHints(registry =>
 });
 ```
 
-Explicações:
-- `services` é um objeto de `IServiceCollection`.
-- `ConfigureOperationHints` é o extension method para configurar hints handlers.
-- `registry` é um objeto de `IHintHandlerRegistry`, onde são registrados os hints handlers.
-- `AddIncludesHandler<TEntity, THint>` é um método para registrar um hint handler. Os tipos genéricos são da entidade que será manipulada e o tipo do hint que será informado.
-- `(hint, includes)` são os parâmetros da função que manipula o hint. `hint` é o valor do `enum` (por exemplo, informado na unidade de trabalho). `includes` é um objeto de `Includes<TEntity>`, específico para adicionar `Include` nas queries do EFCore.
-
-
 Explanations:
 - `services` is an object of `IServiceCollection`.
 - `ConfigureOperationHints` is the extension method for configuring hint handlers.
